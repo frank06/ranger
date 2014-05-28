@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<meta name="viewport" content="width=device-width">
+
+<script src="../lib/ranger.js" type="text/javascript" charset="utf-8"></script>
+<script src="lib/jquery.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+
+  $(function() {
+        
+    $(document).on('mouseup', function() {
+      
+      if (window.getSelection() && window.getSelection().rangeCount > 0) {
+        range = window.getSelection().getRangeAt(0);
+        var ranger = new Ranger(range);
+        ranger.paint("hl");
+        console.log(ranger.toJSON());
+        window.getSelection().removeAllRanges();
+      }
+      
+    });
+    
+  });
+
+</script>
+
+<style>
+
+  body {
+    font-size: 1.3em;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .hl {
+    background: rgba(255,255,10,0.5);
+  }
+
+</style>
+
+
+<div id="content">
+
+<p id="one">Lorem ipsum <strong>dolor <em>sit</em> amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco <em>laboris</em> nisi ut aliquip ex ea commodo consequat. Duis aute irure <em>dolor in reprehenderit in voluptate velit</em> esse cillum dolore eu fugiat nulla pariatur. Excepteur sint <strong>occaecat cupidatat</strong> non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<p id="img">
+  <img src="cat.jpg">
+</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation <em>ullamco laboris nisi ut aliquip ex ea commodo consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<table id="table" width="100%">
+  <tbody>
+    <tr>
+      <td valign="top" class="thead">Strategiske grupper</td>
+      <td valign="top" class="thead">Pris og kvalitet</td>
+      <td valign="top" class="thead">Konkurrentreaktion</td>
+    </tr>
+    <tr>
+      <td valign="top" class="tcell">
+        <ol>
+          <li>Sony, B&amp;O og Loewe</li>
+          <li>Samsung, Xerox og Amitech</li>
+          <li>Elatron, SuncMaster og NU Tech</li>
+        </ol>
+      </td>
+      <td valign="top" class="tcell">Dyre produkter af høj kvalitet<br>Mellempris og mellemkvalitet<br>Lav pris og lav kvalitet</td>
+      <td valign="top" class="tcell">Tilbagelænede konkurrenter<br>Uforudsigelige konkurrenter<br>Tiger konkurrenter</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+</div>
