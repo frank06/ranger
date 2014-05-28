@@ -52,22 +52,22 @@ describe('Da Ranger', function() {
   it('should paint even if there is another highlight', function(done) {
     
     var r = {
-      startContainer: "/html/body/div/p/strong/em",
+      startContainer: "/html/body/div[2]/p/strong[1]",
       startOffset: 1,
-      endContainer: "/html/body/div/p/strong/em",
+      endContainer: "/html/body/div[2]/p/strong[1]",
       endOffset: 3
     }
     
     new Ranger(r).paint("hl");
 
     r = {
-      startContainer: "/html/body/div/p/strong/em",
+      startContainer: "/html/body/div[2]/p/strong[1]",
       startOffset: 0,
-      endContainer: "/html/body/div/p/strong/em",
+      endContainer: "/html/body/div[2]/p/strong[1]",
       endOffset: 3
     }
     
-    // should paint 2 textnodes in "sit": "s" & "it"
+    // should paint 2 textnodes in "dolor": "d" & "ol"
     new Ranger(r).paint("hl").length.should.be.equal(2);
     
     done();
@@ -128,8 +128,6 @@ describe('Da Ranger', function() {
 
         ranger.paint("hl");
       
-        console.log(ranger.toString());
-      
       }
 
     }).should.not.throw();
@@ -138,7 +136,7 @@ describe('Da Ranger', function() {
     
   });
 
-  it('should not break a SVG if selected inside', function(done) {
+  it('should not select any SVG text nodes', function(done) {
     
     var start = document.querySelector('ellipse');
     var end = document.querySelector('filter');
@@ -151,6 +149,8 @@ describe('Da Ranger', function() {
     }
     
     var painted = new Ranger(r).paint("hl");
+    
+    painted.length.should.equal(0);
     
     done();
     
@@ -183,13 +183,11 @@ describe('Da Ranger', function() {
   
   it('should paint the same amount of text nodes', function(done) {
     
-    return done();
-    
     var r = {
       startContainer: document.querySelector('#one em'),
       endContainer: document.querySelector('#three strong'),
       startOffset: 2,
-      endOffset: 12
+      endOffset: 6
     }
     
     var ranger = new Ranger(r);
@@ -197,10 +195,7 @@ describe('Da Ranger', function() {
     var nodes = ranger.textNodes();
     var painted = ranger.paint("hl");
     
-    console.log(nodes.length);
-    console.log(painted);
-    
-    // nodes.length.should.equal(painted.length);
+    nodes.length.should.equal(painted.length);
     
     done();
     
@@ -218,8 +213,6 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
-    
-    console.log(ranger.toJSON());
     
   })
   
