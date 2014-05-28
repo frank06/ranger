@@ -1,6 +1,6 @@
 # Ranger
 
-A utility for working with browser ranges, in particular to highlight text nodes in ranges and serialize them.
+A small utility to grab, wrap and serialize ranges of text nodes.
 
 It does not have any dependency.
 
