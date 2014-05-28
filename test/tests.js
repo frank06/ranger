@@ -130,40 +130,36 @@ describe('Da Ranger', function() {
   
   it('should not break with random start/end nodes', function(done) {
     
-    (function() {
-
-      var content = document.getElementById('content'),
-        times = 9;
+    var content = document.getElementById('content'),
+      times = 9;
+  
+    for (var i = 0; i < times; i++) {
     
-      for (var i = 0; i < times; i++) {
-      
-        // Prepare nodes, filter out highlight spans, and concat with an only-text node list
-        // so that text nodes have more weight in the shuffle
-      
-        var nodes = getAllNodes(content).filter(function(e) { return e.className != 'hl' })
-          .concat(getAllNodes(content, true))
-          .concat(getAllNodes(content, true));
-      
-        var shuffledNodes = shuffleArray(nodes);
-      
-        var start = shuffledNodes[0],
-          end = shuffledNodes[shuffledNodes.length - 1];
-      
-        var r = {
-          startContainer: start,
-          endContainer: end,
-          startOffset: randomIntMax(start.textContent.length),
-          endOffset: randomIntMax(end.textContent.length)
-        }
-
-        var ranger = new Ranger(r);
-
-        ranger.paint("hl");
-      
+      // Prepare nodes, filter out highlight spans, and concat with an only-text node list
+      // so that text nodes have more weight in the shuffle
+    
+      var nodes = getAllNodes(content).filter(function(e) { return e.className != 'hl' })
+        .concat(getAllNodes(content, true))
+        .concat(getAllNodes(content, true));
+    
+      var shuffledNodes = shuffleArray(nodes);
+    
+      var start = shuffledNodes[0],
+        end = shuffledNodes[shuffledNodes.length - 1];
+    
+      var r = {
+        startContainer: start,
+        endContainer: end,
+        startOffset: randomIntMax(start.textContent.length),
+        endOffset: randomIntMax(end.textContent.length)
       }
 
-    }).should.not.throw();
+      var ranger = new Ranger(r);
+
+      ranger.paint("hl");
     
+    }
+
     done();
     
   });
