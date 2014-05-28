@@ -1,5 +1,21 @@
 describe('Da Ranger', function() {
   
+  it('should bound the offset to the maximum possible value for node', function(done) {
+    
+    var r = {
+      startContainer: $('#content strong')[0],
+      startOffset: 1,
+      endContainer: $('#content strong').eq(1).contents()[0],
+      endOffset: 3000
+    }
+    
+    var ranger = new Ranger(r);
+    ranger.toJSON().endOffset.should.equal(18); // not 3000
+    
+    done();
+    
+  });
+  
   it('should recognize a serialized range', function(done) {
     
     var r = {
