@@ -78,47 +78,67 @@ describe('Da Ranger', function() {
     done();
   });
   
+  it('should highlight correctly from non-textnode to non-textnode', function() {
+    
+    var r = {
+      startContainer: "/html/body/div[2]/p[2]/img",
+      startOffset: 0,
+      endContainer: "/html/body/div[2]/hr",
+      endOffset: 0
+    }
+
+    var ranger = new Ranger(r),
+      painted = ranger.paint("hl");
+
+    painted.length.should.be.greaterThan(0);
+    
+    ranger.toString().should.equal("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    
+  });
+  
   it('should not break with random start/end nodes', function(done) {
     
-    var content = document.getElementById('content'),
-      times = 4;
+    (function() {
+
+      var content = document.getElementById('content'),
+        times = 4;
     
-    for (var i = 0; i < times; i++) {
+      for (var i = 0; i < times; i++) {
       
-      // Prepare nodes, filter out highlight spans, and concat with an only-text node list
-      // so that text nodes have more weight in the shuffle
+        // Prepare nodes, filter out highlight spans, and concat with an only-text node list
+        // so that text nodes have more weight in the shuffle
       
-      var nodes = getAllNodes(content).filter(function(e) { return e.className != 'hl' })
-        .concat(getAllNodes(content, true))
-        .concat(getAllNodes(content, true));
+        var nodes = getAllNodes(content).filter(function(e) { return e.className != 'hl' })
+          .concat(getAllNodes(content, true))
+          .concat(getAllNodes(content, true));
       
-      var shuffledNodes = shuffleArray(nodes);
+        var shuffledNodes = shuffleArray(nodes);
       
-      var start = shuffledNodes[0],
-        end = shuffledNodes[shuffledNodes.length - 1];
+        var start = shuffledNodes[0],
+          end = shuffledNodes[shuffledNodes.length - 1];
       
-      var r = {
-        startContainer: start,
-        endContainer: end,
-        startOffset: randomIntMax(start.textContent.length),
-        endOffset: randomIntMax(end.textContent.length)
+        var r = {
+          startContainer: start,
+          endContainer: end,
+          startOffset: randomIntMax(start.textContent.length),
+          endOffset: randomIntMax(end.textContent.length)
+        }
+
+        var ranger = new Ranger(r);
+
+        ranger.paint("hl");
+      
+        console.log(ranger.toString());
+      
       }
 
-      var ranger = new Ranger(r);
-
-      ranger.paint("hl");
-      
-      console.log(ranger.toString());
-      
-    }
+    }).should.not.throw();
     
     done();
     
   });
 
   it('should not break a SVG if selected inside', function(done) {
-    
-    // return done();
     
     var start = document.querySelector('ellipse');
     var end = document.querySelector('filter');
