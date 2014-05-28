@@ -1,5 +1,13 @@
 describe('Da Ranger', function() {
   
+  it('should ignore when no ranged is supplied', function(done) {
+    
+    (new Ranger().textNodes() === undefined).should.be.true;
+    
+    done();
+    
+  });
+  
   it('should bound the offset to the maximum possible value for node', function(done) {
     
     var r = {
@@ -11,6 +19,26 @@ describe('Da Ranger', function() {
     
     var ranger = new Ranger(r);
     ranger.toJSON().endOffset.should.equal(18); // not 3000
+    
+    done();
+    
+  });
+  
+  it('should correctly swap nodes to the right start/end', function(done) {
+    
+    var r = {
+      startContainer: $('#content strong').eq(1).contents()[0],
+      startOffset: 18,
+      endContainer: $('#content strong')[0],
+      endOffset: 1
+    }
+    
+    var serialized = new Ranger(r).toJSON();
+    
+    serialized.startContainer.should.equal(Ranger.xpath.getXPath($('#content strong')[0]));
+    serialized.startOffset.should.equal(r.endOffset);
+    serialized.endContainer.should.equal(Ranger.xpath.getXPath($('#content strong')[1]));
+    serialized.endOffset.should.equal(r.startOffset);
     
     done();
     
@@ -220,7 +248,7 @@ describe('Da Ranger', function() {
     
     done();
     
-  });  
+  });
   
 });
 
