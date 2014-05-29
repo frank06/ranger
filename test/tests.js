@@ -26,6 +26,22 @@ describe('Da Ranger', function() {
     
   });
   
+  it('should not blow if i set ridiculous offsets when start == end', function(done) {
+    
+    var r = {
+      startContainer: $('#content strong')[0],
+      startOffset: 11,
+      endContainer: $('#content strong')[0],
+      endOffset: 3000
+    }
+    
+    var ranger = new Ranger(r);
+    expect(ranger.paint("hl").length).to.equal(1);
+    
+    done();
+    
+  });
+  
   it('should correctly swap nodes to the right start/end', function(done) {
     
     var r = {
@@ -36,7 +52,6 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
-    // ranger.paint("hl");
     var serialized = ranger.toJSON();
     
     expect(serialized.startContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[0]));
@@ -53,12 +68,9 @@ describe('Da Ranger', function() {
     var r = {
       startContainer: "/html/body/div/p/strong/em",
       startOffset: 1,
-      endContainer: "/html/body/div/p/strong",
-      endOffset: 10
-    }
-    
-    // endContainer: "/html/body/div/p/em[2]",
-    // endOffset: 41
+      endContainer: "/html/body/div/p/em[2]",
+      endOffset: 41
+    }    
 
     var ranger = new Ranger(r);
 
@@ -71,6 +83,33 @@ describe('Da Ranger', function() {
     var text = ranger.toString();
     
     expect(text).to.equal("it amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit");
+    
+    done();
+    
+  });
+  
+  it('should accept equivalent descriptions for accessing the same node', function(done) {
+    
+    // /html/body/div/p/strong,8  is equivalent to  /html/body/div/p/strong/em,2
+    
+    var r1 = {
+      startContainer: "/html/body/div/p/strong",
+      startOffset: 8,
+      endContainer: "/html/body/div/p[2]",
+      endOffset: 0
+    }
+    
+    var r2 = {
+      startContainer: "/html/body/div/p/strong/em",
+      startOffset: 2,
+      endContainer: "/html/body/div/p[2]",
+      endOffset: 0
+    }
+    
+    var ranger1 = new Ranger(r1),
+      ranger2 = new Ranger(r2);
+    
+    expect(ranger1.toString()).to.equal(ranger2.toString());
     
     done();
     
@@ -102,6 +141,29 @@ describe('Da Ranger', function() {
     
   });
   
+  it('should serialize the same result regardless of whether paint has been called or not', function(done) {
+    
+    var s1 = Ranger._findDeepestNode($('#content p')[3], 438),
+      s2 = Ranger._findDeepestNode($('#content li')[1], 7);
+    
+    var r = {
+      startContainer: s1[0],
+      endContainer: s2[0],
+      startOffset: s1[1],
+      endOffset: s2[1]
+    }
+    
+    var ranger = new Ranger(r);
+    var json1 = ranger.toJSON();
+    ranger.paint("hl");
+    var json2 = ranger.toJSON();
+    
+    expect(json2).to.deep.equal(json1);
+    
+    done();
+    
+  });
+  
   it('should paint even if there is another highlight', function(done) {
     
     var r = {
@@ -127,7 +189,7 @@ describe('Da Ranger', function() {
     done();
     
   });
-  
+    
   it('should throw an exception when provided shit', function(done) {
     
     expect(function() {
