@@ -8,9 +8,9 @@ It does not have any dependency.
 
 ## Tests
 
-It works in modern browsers. Tested on latest Chrome, Chromium, Firefox, Safari, Android stock browser, Chrome for Android, Chrome for iPhone, iPad mobile Safari.
+It works in modern browsers.
 
-TODO: Internet Explorer.
+Tested on latest Chrome, Chromium, Firefox, Safari, IE 9/10/11, Opera for Windows 8, Android stock browser, Chrome for Android, Chrome for iPhone, iPad mobile Safari.
 
 ## License
 

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
@@ -98,9 +99,14 @@
   
   <script src="../lib/ranger.js"></script>
   <script src="lib/jquery.js"></script>
+  
+  <!-- polyfills for IE -->
+  <script src="lib/wgxpath.install.js"></script>
+  <script>wgxpath.install()</script>
+  
   <script src="lib/mocha.js"></script>
-  <script src="lib/should.min.js"></script>
-  <script>mocha.setup('bdd')</script>
+  <script src="lib/chai.js"></script>
+  <script>mocha.setup('bdd'); var expect = chai.expect;</script>
   <script src="tests.js"></script>
   <script>  
     mocha.checkLeaks();
