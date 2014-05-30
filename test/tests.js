@@ -32,7 +32,7 @@ describe('A Ranger', function() {
     
   });
   
-  it('should not blow if i set ridiculous offsets when start == end', function(done) {
+  it('should not blow if set ridiculous offsets when start == end', function(done) {
     
     var r = {
       startContainer: $('#content strong')[0],
@@ -41,8 +41,28 @@ describe('A Ranger', function() {
       endOffset: 3000
     }
     
+    expect(new Ranger(r).paint().length).to.equal(1);
+    
+    done();
+    
+  });
+  
+  it('should check unpaint', function(done) {
+    
+    var r = {
+      startContainer: $('#content strong')[0],
+      startOffset: 8,
+      endContainer: $('#content p')[3],
+      endOffset: 10
+    }
+    
     var ranger = new Ranger(r);
-    expect(ranger.paint(hl).length).to.equal(1);
+    ranger.paint();
+    var beforeText = ranger.toString();
+    
+    ranger.unpaint();
+    ranger.paint(hl);
+    expect(ranger.toString()).to.equal(beforeText);
     
     done();
     
@@ -51,7 +71,7 @@ describe('A Ranger', function() {
   it('should swap nodes to the right start/end only internally', function(done) {
     
     var r = {
-      startContainer: $('#content strong').eq(1).contents()[0],
+      startContainer: getAllNodes($('#content strong')[1], true)[0],
       startOffset: 18,
       endContainer: $('#content strong')[0],
       endOffset: 1
