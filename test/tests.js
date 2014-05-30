@@ -1,4 +1,10 @@
-describe('Da Ranger', function() {
+describe('A Ranger', function() {
+  
+  var hl = function() {
+    var wrapper = document.createElement('span');
+    wrapper.className = "hl";
+    return wrapper;
+  }();
   
   it('should ignore when no ranged is supplied', function(done) {
     
@@ -36,7 +42,7 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
-    expect(ranger.paint("hl").length).to.equal(1);
+    expect(ranger.paint(hl).length).to.equal(1);
     
     done();
     
@@ -52,7 +58,7 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
-    // ranger.paint("hl");
+    // ranger.paint(hl);
     var serialized = ranger.toJSON();
     
     expect(serialized.startContainer).to.equal(Ranger.utils.xpath.getXPath($('#content strong')[1]));
@@ -64,7 +70,7 @@ describe('Da Ranger', function() {
     
   });
   
-  it('should recognize a serialized range', function(done) {
+  it('should recognize a serialized range, use default painting element and check hash', function(done) {
     
     var r = {
       startContainer: "/html/body/div/p/strong/em",
@@ -75,15 +81,18 @@ describe('Da Ranger', function() {
 
     var ranger = new Ranger(r);
 
-    var painted = ranger.paint("hl");
-    
-    return done();
+    var painted = ranger.paint(); // uses default painting element
     
     expect(painted.length).to.be.greaterThan(0);
     
     var text = ranger.toString();
     
     expect(text).to.equal("it amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit");
+    
+    painted.forEach(function(p) {
+      expect(p.className).to.equal(Ranger.PAINT_CLASS);
+      expect(p.getAttribute(Ranger.DATA_ATTR)).to.equal('8f2447b3'); // 8f2447b3 is r's hash
+    });
     
     done();
     
@@ -126,7 +135,7 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
-    ranger.paint('hl');
+    ranger.paint(hl);
     
     expect(ranger.toString()).to.equal("cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     
@@ -156,7 +165,7 @@ describe('Da Ranger', function() {
     
     var ranger = new Ranger(r);
     var json1 = ranger.toJSON();
-    ranger.paint("hl");
+    ranger.paint(hl);
     var json2 = ranger.toJSON();
     
     expect(json2).to.deep.equal(json1);
@@ -174,7 +183,7 @@ describe('Da Ranger', function() {
       endOffset: 3
     }
     
-    new Ranger(r).paint("hl");
+    new Ranger(r).paint(hl);
 
     r = {
       startContainer: "/html/body/div[2]/p/strong[1]",
@@ -185,7 +194,7 @@ describe('Da Ranger', function() {
     
     // should paint 2 textnodes in "dolor": "d" & "ol"
     // we use greater than, because highlights from other tests could be influencing the result
-    expect(new Ranger(r).paint("hl").length).to.be.greaterThan(1);
+    expect(new Ranger(r).paint(hl).length).to.be.greaterThan(1);
     
     done();
     
@@ -220,7 +229,7 @@ describe('Da Ranger', function() {
     }
 
     var ranger = new Ranger(r),
-      painted = ranger.paint("hl");
+      painted = ranger.paint(hl);
 
     expect(painted.length).to.be.greaterThan(0);
     
@@ -256,7 +265,7 @@ describe('Da Ranger', function() {
 
       var ranger = new Ranger(r);
 
-      ranger.paint("hl");
+      ranger.paint(hl);
     
     }
 
@@ -276,7 +285,7 @@ describe('Da Ranger', function() {
       endOffset: 79
     }
     
-    var painted = new Ranger(r).paint("hl");
+    var painted = new Ranger(r).paint(hl);
     
     expect(painted.length).to.equal(0);
     
@@ -295,7 +304,7 @@ describe('Da Ranger', function() {
       endOffset: 5
     }
     
-    var painted = new Ranger(r).paint("hl");
+    var painted = new Ranger(r).paint(hl);
     expect(painted.length).to.be.greaterThan(0);
     
     done();
@@ -314,7 +323,7 @@ describe('Da Ranger', function() {
     var ranger = new Ranger(r);
     
     var nodes = ranger.textNodes();
-    var painted = ranger.paint("hl");
+    var painted = ranger.paint(hl);
     
     expect(painted.length).to.equal(nodes.length);
     
