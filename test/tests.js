@@ -55,9 +55,9 @@ describe('Da Ranger', function() {
     // ranger.paint("hl");
     var serialized = ranger.toJSON();
     
-    expect(serialized.startContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[1]));
+    expect(serialized.startContainer).to.equal(Ranger.utils.xpath.getXPath($('#content strong')[1]));
     expect(serialized.startOffset).to.equal(18);
-    expect(serialized.endContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[0]));
+    expect(serialized.endContainer).to.equal(Ranger.utils.xpath.getXPath($('#content strong')[0]));
     expect(serialized.endOffset).to.equal(1);
     
     done();
@@ -144,8 +144,8 @@ describe('Da Ranger', function() {
   
   it('should serialize the same result regardless of whether paint has been called or not', function(done) {
     
-    var s1 = Ranger._findDeepestNode($('#content p')[3], 438),
-      s2 = Ranger._findDeepestNode($('#content li')[1], 7);
+    var s1 = Ranger.utils.findDeepestNode($('#content p')[3], 438),
+      s2 = Ranger.utils.findDeepestNode($('#content li')[1], 7);
     
     var r = {
       startContainer: s1[0],
@@ -286,7 +286,7 @@ describe('Da Ranger', function() {
   
   it('should work with selection crossing SVG tags', function(done) {
     
-    var s = Ranger._findDeepestNode($('p')[2], 438);
+    var s = Ranger.utils.findDeepestNode($('p')[2], 438);
     
     var r = {
       startContainer: s[0],
