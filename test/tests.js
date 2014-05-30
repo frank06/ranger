@@ -234,6 +234,20 @@ describe('A Ranger', function() {
       new Ranger(r).toJSON();
     
     }).to.throw(Error);
+
+    expect(function() {
+    
+      var r = {
+        startContainer: "zzzz1]",
+        startOffset: 0,
+        endContainer: "----",
+        endOffset: 10
+      }
+    
+      new Ranger(r).toJSON();
+    
+    }).to.throw(Error, /is not a valid XPath expression/);
+
     
     done();
     
