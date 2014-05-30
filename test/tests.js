@@ -42,7 +42,7 @@ describe('Da Ranger', function() {
     
   });
   
-  it('should correctly swap nodes to the right start/end', function(done) {
+  it('should swap nodes to the right start/end only internally', function(done) {
     
     var r = {
       startContainer: $('#content strong').eq(1).contents()[0],
@@ -52,12 +52,13 @@ describe('Da Ranger', function() {
     }
     
     var ranger = new Ranger(r);
+    // ranger.paint("hl");
     var serialized = ranger.toJSON();
     
-    expect(serialized.startContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[0]));
-    expect(serialized.startOffset).to.equal(1);
-    expect(serialized.endContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[1]));
-    expect(serialized.endOffset).to.equal(18);
+    expect(serialized.startContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[1]));
+    expect(serialized.startOffset).to.equal(18);
+    expect(serialized.endContainer).to.equal(Ranger.xpath.getXPath($('#content strong')[0]));
+    expect(serialized.endOffset).to.equal(1);
     
     done();
     
