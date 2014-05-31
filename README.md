@@ -44,6 +44,8 @@ ranger.textNodes(); // returns an array
 
 ranger.paint();  // it's possible to supply as argument a DOM element to act as a wrapper
 
+// (Tip: add this CSS: .ranger-hl { background: rgba(255,255,10,0.5); } )
+
 // Return a hash of the current range
 
 ranger.dataAttrValue; // included as data- attribute in all wrapper nodes
