@@ -167,7 +167,35 @@ describe('A Ranger', function() {
     expect(serialized.endOffset).to.equal(r.endOffset);
     expect(serialized.commonAncestorContainer).to.equal(undefined);
     
+    var r2 = {
+      startContainer: $('#content td')[1],
+      startOffset: 1,
+      endContainer: $('#content td')[3],
+      endOffset: 5
+    }
+    
+    var json1 = new Ranger(r2).toJSON();
+    
+    expect(new Ranger(json1).toJSON()).to.deep.equal(json1);
+    
     done();
+    
+  });
+  
+  it('should throw invalid range', function() {
+    
+    expect(function() {
+      
+      var r = {
+        startContainer: $('#content li')[2],
+        startOffset: 1,
+        endContainer: $('#content li')[5],
+        endOffset: 5
+      }
+      
+      new Ranger(r);
+      
+    }).to.throw(Error, /Invalid range/);
     
   });
   
