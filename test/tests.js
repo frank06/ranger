@@ -109,6 +109,8 @@ describe('A Ranger', function() {
     
     expect(text).to.equal("it amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit");
     
+    expect(ranger.id).to.equal('8f2447b3');
+    
     painted.forEach(function(p) {
       expect(p.className).to.equal(Ranger.PAINT_CLASS);
       expect(p.getAttribute(Ranger.DATA_ATTR)).to.equal('8f2447b3'); // 8f2447b3 is r's hash

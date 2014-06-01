@@ -48,7 +48,7 @@ ranger.paint();  // it's possible to supply as argument a DOM element to act as 
 
 // Return a hash of the current range
 
-ranger.dataAttrValue; // included as data- attribute in all wrapper nodes
+ranger.id; // included as data- attribute in all wrapper nodes
 
 // Serialize to XPath
 
