@@ -40,15 +40,15 @@ var ranger = new Ranger(ranger);
 
 ranger.textNodes(); // returns an array
 
-// Paint the nodes (wraps an element around each text node)
+// Paint the nodes (wraps an element around each text node) (Tip: add this CSS: .ranger-hl { background: rgba(255,255,10,0.5); } )
 
-ranger.paint();  // it's possible to supply as argument a DOM element to act as a wrapper
+ranger.paint();  // or supply a DOM element as argument to act as a wrapper
 
-// (Tip: add this CSS: .ranger-hl { background: rgba(255,255,10,0.5); } )
+// Return a hash of the current range, included by default on all nodes on a data-* attribute
 
-// Return a hash of the current range
+ranger.id; // the hash
 
-ranger.id; // included as data- attribute in all wrapper nodes
+Ranger.DATA_ATTR; // the data attribute name, "data-ranger-hl";
 
 // Serialize to XPath
 
