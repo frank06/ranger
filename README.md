@@ -34,7 +34,7 @@ var range = {
 
 // Instantiate Ranger
 
-var ranger = new Ranger(ranger);
+var ranger = new Ranger(ranger, options); // options are context (root node) and ignoreSelector (will skip when serializing)
 
 // Get the text nodes defined in that range
 

@@ -395,6 +395,79 @@ describe('A Ranger', function() {
     
   });
   
+  it('should accept jQuery objects too', function(done) {
+    
+    expect(function() {
+    
+      new Ranger({
+        startContainer: $('p:first'),
+        startOffset: 0,
+        endContainer: $('p:first'),
+        endOffset: 16
+      });
+      
+    }).not.to.throw();
+    
+    done();
+    
+  });
+  
+  it('should correctly use context in toJSON', function(done) {
+    
+    var further = $('#further');
+    
+    var ranger = new Ranger({
+      startContainer: further.find('p:first'),
+      startOffset: 0,
+      endContainer: further.find('p:first'),
+      endOffset: 16
+    }, { context: further[0] });
+    
+    expect(ranger.toJSON()).to.deep.equal({
+      startContainer: "/p",
+      startOffset: 0,
+      endContainer: "/p",
+      endOffset: 16,
+      id: "a907e884"
+    });
+    
+    done();
+    
+  });
+  
+  it('should ignore additional elements', function(done) {
+    
+    // We will test two identical paragraphs (except one has a <mark> element, to be ignored),
+    // should result in the same serialization
+    
+    var further = $('#further');
+    
+    var ranger1 = new Ranger({
+      startContainer: further.find('p:first em'),
+      startOffset: 0,
+      endContainer: further.find('p:first em'),
+      endOffset: 16
+    }, {
+      context: further.find('p:first')
+    });
+    
+    var ranger2 = new Ranger({
+      startContainer: further.find('p:eq(2) em'),
+      startOffset: 0,
+      endContainer: further.find('p:eq(2) em'),
+      endOffset: 16
+    }, {
+      context: further.find('p:eq(2)'),
+      ignoreSelector: 'mark'
+    });
+    
+    expect(ranger1.id).to.equal(ranger2.id);
+    
+    done();
+    
+  });
+  
+  
 });
 
 // Utilites
