@@ -276,7 +276,7 @@ describe('A Ranger', function() {
     
       new Ranger(r).toJSON();
     
-    }).to.throw(Error, /valid.*expression/i);
+    }).to.throw(Error);
 
     
     done();
@@ -424,11 +424,11 @@ describe('A Ranger', function() {
     }, { context: further[0] });
     
     expect(ranger.toJSON()).to.deep.equal({
-      startContainer: "/p",
+      startContainer: "./p",
       startOffset: 0,
-      endContainer: "/p",
+      endContainer: "./p",
       endOffset: 16,
-      id: "a907e884"
+      id: "6e016dfe"
     });
     
     done();
@@ -462,6 +462,37 @@ describe('A Ranger', function() {
     });
     
     expect(ranger1.id).to.equal(ranger2.id);
+    
+    done();
+    
+  });
+  
+  it('should equal its serialized counterpart when using contexts', function(done) {
+    
+    var further = $('#further');
+    
+    var r1 = new Ranger({
+      startContainer: further,
+      startOffset: 0,
+      endContainer: further,
+      endOffset: 16
+    }, { context: further });
+    
+    var json1 = r1.toJSON();
+
+    expect(new Ranger(json1, { context: further }).toJSON()).to.deep.equal(json1);
+    
+    var r2 = new Ranger({
+      startContainer: further.find('em'),
+      startOffset: 0,
+      endContainer: further.find('em'),
+      endOffset: 9
+    }, { context: further });
+    
+    var json2 = r2.toJSON();
+    
+    expect(new Ranger(json2, { context: further }).toString()).to.equal("More text");
+    expect(new Ranger(json2, { context: further }).toJSON()).to.deep.equal(json2);
     
     done();
     
