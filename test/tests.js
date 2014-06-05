@@ -276,7 +276,7 @@ describe('A Ranger', function() {
     
       new Ranger(r).toJSON();
     
-    }).to.throw(Error, /is not a valid XPath expression/);
+    }).to.throw(Error, /valid.*expression/i);
 
     
     done();
