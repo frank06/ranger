@@ -64,7 +64,7 @@ ranger.unpaint();
 
 ## Documentation
 
-For now, look at the tests.
+For now, [look at the tests](https://github.com/frank06/ranger/blob/master/test/tests.js).
 
 ## Wishlist
 
