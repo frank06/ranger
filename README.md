@@ -12,10 +12,6 @@ It works in modern browsers.
 
 Tested on latest Chrome, Chromium, Firefox, Safari, IE 9/10/11, Opera for Windows 8, Android stock browser, Chrome for Android, Chrome for iPhone, iPad mobile Safari.
 
-## Documentation
-
-For now, look at the tests.
-
 ## Basic usage
 
 ```js
@@ -64,8 +60,16 @@ ranger.toString(); // content of text nodes in range
 
 ranger.unpaint();
 
-
 ```
+
+## Documentation
+
+For now, look at the tests.
+
+## Wishlist
+
+ - Snap to words
+ - Infer new possible position when DOM is changed
 
 ## License
 
