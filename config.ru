@@ -1,4 +1,5 @@
-# This is the root of our app
+# Run: shotgun config.ru 
+
 @root = File.expand_path(File.dirname(__FILE__))
 
 run Proc.new { |env|
