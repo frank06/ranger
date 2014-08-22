@@ -47,6 +47,28 @@ describe('A Ranger', function() {
     
   });
   
+  it('should allow startoffset > endoffset', function(done) {
+    
+    var r = {
+      startContainer: $('#content strong')[0],
+      startOffset: 9,
+      endContainer: $('#content strong')[0],
+      endOffset: 0
+    }
+    
+    var r2 = {
+      startContainer: $('#content strong')[0],
+      startOffset: 0,
+      endContainer: $('#content strong')[0],
+      endOffset: 9
+    }
+    
+    expect(new Ranger(r).paint().length).to.equal(new Ranger(r2).paint().length);
+    
+    done();
+    
+  });
+  
   it('should check unpaint', function(done) {
     
     var r = {
