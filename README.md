@@ -34,11 +34,9 @@ var ranger = new Ranger(ranger, options);
 
 // Configuration options
 
-context // the root node from where XPaths should be calculated
+context // the root node from where XPaths should be calculated (in case of working with an iframe, supply the new document)
 
 ignoreSelector // a querySelector-compatible selector whose selection will be skipped when serializing
-
-document // supply when different than global document (i.e. iframes)
 
 // Get the text nodes defined in that range
 
