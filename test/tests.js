@@ -444,7 +444,7 @@ describe('A Ranger', function() {
     
     var ranger1 = new Ranger({
       startContainer: further.find('p:first em'),
-      startOffset: 0,
+      startOffset: 4,
       endContainer: further.find('p:first em'),
       endOffset: 16
     }, {
@@ -453,15 +453,28 @@ describe('A Ranger', function() {
     
     var ranger2 = new Ranger({
       startContainer: further.find('p:eq(2) em'),
-      startOffset: 0,
+      startOffset: 4,
       endContainer: further.find('p:eq(2) em'),
       endOffset: 16
     }, {
       context: further.find('p:eq(2)'),
       ignoreSelector: 'mark'
     });
+
+    var ranger3 = new Ranger({
+      startContainer: further.find('p:first em'),
+      startOffset: 0,
+      endContainer: further.find('p:first em'),
+      endOffset: 12
+    });
     
     expect(ranger1.id).to.equal(ranger2.id);
+
+    // Ensure "late painting" does not affected the expected output for later highlights
+
+    ranger1.paint();
+    ranger3.paint();
+    expect(ranger3.toString()).to.equal("More text he");
     
     done();
     
