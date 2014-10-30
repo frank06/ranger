@@ -6,6 +6,8 @@ The goal of this library is to be a small and resilient tool that gets one thing
 
 It does not have any dependency besides `wgxpath` if parsing serialized (XPath) ranges in IE is required, in which case it must be `install()`ed before using Ranger. No, it does not require jQuery.
 
+Ranger consistently finds the best selection for the supplied Range specification. In a 10-character node, it will not fail with offsets (1, 3000) but the resulting selection length will obviously not be 2999 (it will be 9). Ranger is sensitive to any whitespace change within text nodes.
+
 ## Support
 
 It works in modern browsers.
@@ -65,7 +67,7 @@ new Ranger(json).toJSON() === json; // true
 
 // Stringify
 
-ranger.toString(); // content of text nodes in range
+ranger.toString(); // content of text nodes in range, trimmed
 
 // Remove wrapping
 

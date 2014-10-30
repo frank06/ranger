@@ -63,7 +63,7 @@ describe('A Ranger', function() {
       endOffset: 9
     }
     
-    expect(new Ranger(r).paint().length).to.equal(new Ranger(r2).paint().length);
+    expect(new Ranger(r).toString().length).to.equal(new Ranger(r2).toString().length);
     
     done();
     
@@ -412,6 +412,25 @@ describe('A Ranger', function() {
     var painted = ranger.paint(hl);
     
     expect(painted.length).to.equal(nodes.length);
+    
+    done();
+    
+  });
+  
+  it('should keep whitespace', function(done) {
+    
+    var r = {
+      startContainer: document.querySelector('#three'),
+      endContainer: document.querySelector('#three'),
+      startOffset: 2,
+      endOffset: 10
+    }
+    
+    var ranger = new Ranger(r);
+    
+    if (Math.random() * 10 < 5) ranger.paint(hl); // randomly paint
+    
+    expect(ranger.toString()).to.equal("L");
     
     done();
     
