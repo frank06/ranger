@@ -41,7 +41,7 @@ var ranger = new Ranger(ranger, options);
   context: node,
   
   // a querySelector-compatible selector whose selection will be skipped when serializing
-  ignoreSelector: ".noselect"
+  ignoreSelector: ".noselect, .noselect *" // to ignore the node(s) and all their children
   
 } 
 
