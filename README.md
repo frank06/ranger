@@ -34,6 +34,10 @@ var range = {
 
 var ranger = new Ranger(ranger, options);
 
+// Naturally, this also works with the Range DOM API
+
+var ranger = new Ranger(window.getSelection().getRangeAt(0));
+
 // Configuration options
 
 {
