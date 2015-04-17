@@ -30,13 +30,13 @@ var range = {
   endOffset: 17
 }
 
+// as well as the Range DOM API
+
+range = window.getSelection().getRangeAt(0);
+
 // Instantiate Ranger
 
-var ranger = new Ranger(ranger, options);
-
-// Naturally, this also works with the Range DOM API
-
-var ranger = new Ranger(window.getSelection().getRangeAt(0));
+var ranger = new Ranger(range, options);
 
 // Configuration options
 
