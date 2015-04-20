@@ -1,0 +1,29 @@
+{
+  "name": "ranger",
+  "version": "0.1.0",
+  "homepage": "https://github.com/frank06/ranger",
+  "authors": [
+    "frank06 <me@frank06.net>"
+  ],
+  "description": "A small utility to grab, wrap and serialize ranges of text nodes",
+  "main": "lib/ranger.js",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "range",
+    "text",
+    "nodes",
+    "highlight",
+    "serialize"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
