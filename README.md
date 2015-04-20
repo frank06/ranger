@@ -8,6 +8,10 @@ It does not have any dependency besides `wgxpath` if parsing serialized (XPath) 
 
 Ranger consistently finds the best selection for the supplied Range specification. In a 10-character node, it will not fail with offsets (1, 3000) but the resulting selection length will obviously not be 2999 (it will be 9). Ranger is sensitive to any whitespace change within text nodes.
 
+## Installation
+
+**Bower**: `bower install ranger-js`.
+
 ## Support
 
 It works in modern browsers.
