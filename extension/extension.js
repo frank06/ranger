@@ -6,16 +6,22 @@ var hl = function() {
 
 var style = document.createElement('style');
 style.type = 'text/css';
-style.innerHTML = '.ranger-hl { background: rgba(255,255,10,0.5); }';
+style.innerHTML = '.ranger-hl { background: rgba(255,255,10,0.5); cursor: default }';
 document.getElementsByTagName('head')[0].appendChild(style);
 
 // chrome.storage.local.remove(window.location.href);
 
 chrome.storage.local.get(window.location.href, function(data) {
-  if (!data[window.location.href]) return;
-  data[window.location.href].forEach(function(range) {
+  var storage = data[window.location.href];
+  if (!storage) return;
+  
+  // console.log(Object.keys(storage));
+  
+  Object.keys(storage).forEach(function(key) {
+    var range = storage[key];
     new Ranger(range).paint(hl);
-  })
+  });
+  
 });
 
 document.onkeyup = function(e) {
@@ -26,7 +32,8 @@ document.onkeyup = function(e) {
       range = window.getSelection().getRangeAt(0);
       
       if (range.collapsed) {
-        Ranger.utils.unpaintBySampleNode(range.startContainer);
+        var id = Ranger.utils.unpaintBySampleNode(range.startContainer);
+        removeRange(id);
         return;
       }
       
@@ -44,12 +51,24 @@ document.onkeyup = function(e) {
 
 var addRange = function(range) {
   
-  chrome.storage.local.get(window.location.href, function(dictionary) {
+  chrome.storage.local.get(window.location.href, function(storage) {
     
-    dictionary[window.location.href] = dictionary[window.location.href] || [];
+    storage[window.location.href] = storage[window.location.href] || {};
     
-    dictionary[window.location.href].push(range);
-    chrome.storage.local.set(dictionary);
+    storage[window.location.href][range.id] = range;
+    chrome.storage.local.set(storage);
+    
+  });
+  
+};
+
+var removeRange = function(id) {
+  
+  chrome.storage.local.get(window.location.href, function(storage) {
+    
+    delete storage[window.location.href][id]; 
+    
+    chrome.storage.local.set(storage);
     
   });
   

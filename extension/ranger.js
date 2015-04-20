@@ -385,6 +385,8 @@ Ranger.utils = {
     
     Ranger.utils.unpaint(nodes);
     
+    return id;
+    
   },
   
   containsNode: function(n1, n2) {
