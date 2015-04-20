@@ -90,6 +90,6 @@ For now, [look at the tests](https://github.com/frank06/ranger/blob/master/test/
 
 ## License
 
-Copyright © 2014 github/frank06
+Copyright © 2015 github/frank06
 
 Licensed under the MIT license.
