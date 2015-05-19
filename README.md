@@ -89,11 +89,13 @@ For now, [look at the tests](https://github.com/frank06/ranger/blob/master/test/
 
 ## Wishlist
 
+ - Improve extension with Ranger REST API integration
+ - Right-click contextual menu, while keeping minimalist
  - Snap to words
- - Infer new possible position when DOM is changed
+ - Track changes, infer new possible position when DOM is changed (via xmldiff)
 
 ## License
 
-Copyright © 2015 github/frank06
+Copyright ©2015 github.com/frank06
 
 Licensed under the MIT license.
